@@ -3,6 +3,8 @@ package com.enigma.service;
 import com.enigma.entity.TableEntities;
 import com.enigma.repositories.TableRepositories;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,5 +32,10 @@ public class ImplementTableService implements TableService {
     @Override
     public void deleteById(String idTable) {
         tableRepositories.deleteById(idTable);
+    }
+
+    @Override
+    public Page<TableEntities> getAllWithPagination(Pageable pageable) {
+        return tableRepositories.findAll(pageable);
     }
 }

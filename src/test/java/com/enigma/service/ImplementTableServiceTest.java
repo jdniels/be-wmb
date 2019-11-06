@@ -7,6 +7,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
@@ -53,6 +55,15 @@ public class ImplementTableServiceTest {
         newTable = tableRepositories.save(newTable);
         tableService.deleteById(newTable.getIdTable());
         assertEquals(0,tableRepositories.findAll().size());
+    }
+    @Test
+    public void should_get_data_table_with_Pagination(){
+        TableEntities newTable1 =new TableEntities(1,"Avaliable",4);
+        TableEntities newTable2 =new TableEntities(2,"Avaliable",6);
+        tableRepositories.save(newTable1);
+        tableRepositories.save(newTable2);
+        Pageable pageable = PageRequest.of(0,2);
+        assertEquals(2,tableService.getAllWithPagination(pageable).getTotalElements());
     }
 
 }
