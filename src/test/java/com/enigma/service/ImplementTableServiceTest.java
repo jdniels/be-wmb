@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -26,7 +29,17 @@ public class ImplementTableServiceTest {
         TableEntities newTable =new TableEntities(1,"Avaliable",4);
         newTable=tableService.saveTable(newTable);
         assertEquals(newTable,tableRepositories.findById(newTable.getIdTable()).get());
-
+    }
+    @Test
+    public void should_return_all_data_when_getAllTable(){
+        TableEntities newTable1 =new TableEntities(1,"Avaliable",4);
+        TableEntities newTable2 =new TableEntities(2,"Avaliable",6);
+        newTable1=tableRepositories.save(newTable1);
+        newTable2=tableRepositories.save(newTable2);
+        List<TableEntities>entitiesList=new ArrayList<>();
+        entitiesList.add(newTable1);
+        entitiesList.add(newTable2);
+        assertEquals(entitiesList,tableService.getAllTable());
     }
 
 }
