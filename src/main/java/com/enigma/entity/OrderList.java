@@ -5,6 +5,8 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "order_list")
 public class OrderList {
@@ -20,7 +22,7 @@ public class OrderList {
     private BigDecimal totalPrice;
     private Integer manyCustomers;
     @OneToMany(mappedBy = "idOrder",cascade = CascadeType.PERSIST)
-    private List<OrderDetail>orderDetails=new ArrayList<>();
+    private List<OrderDetail> orderDetails=new ArrayList<>();
 
     @Transient
     private  String idTable;
