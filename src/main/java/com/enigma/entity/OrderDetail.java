@@ -5,7 +5,8 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-
+@Entity
+@Table(name = "order_detail")
 public class OrderDetail {
     @Id
     @GeneratedValue(generator="system-uuid")
@@ -15,7 +16,7 @@ public class OrderDetail {
     @ManyToOne
     @JoinColumn(name = "id_order")
     @JsonIgnore
-    private OrderList idOrder;
+    private OrderList orderId;
 
     @ManyToOne
     @JoinColumn(name = "id_food")
@@ -43,12 +44,12 @@ public class OrderDetail {
         this.idOrderDetail = idOrderDetail;
     }
 
-    public OrderList getIdOrder() {
-        return idOrder;
+    public OrderList getOrderId() {
+        return orderId;
     }
 
-    public void setIdOrder(OrderList idOrder) {
-        this.idOrder = idOrder;
+    public void setOrderId(OrderList orderId) {
+        this.orderId = orderId;
     }
 
     public FoodEntities getFood() {

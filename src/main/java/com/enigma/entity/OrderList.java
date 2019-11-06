@@ -21,7 +21,7 @@ public class OrderList {
     private String picCustomer;
     private BigDecimal totalPrice;
     private Integer manyCustomers;
-    @OneToMany(mappedBy = "idOrder",cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "orderId",cascade = CascadeType.PERSIST)
     private List<OrderDetail> orderDetails=new ArrayList<>();
 
     @Transient

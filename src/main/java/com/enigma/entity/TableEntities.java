@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Objects;
 
 @Entity
 @Table(name = "mst_table")
@@ -57,5 +58,21 @@ public class TableEntities {
 
     public void setCapacity(Integer capacity) {
         this.capacity = capacity;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TableEntities that = (TableEntities) o;
+        return Objects.equals(idTable, that.idTable) &&
+                Objects.equals(numberTable, that.numberTable) &&
+                Objects.equals(status, that.status) &&
+                Objects.equals(capacity, that.capacity);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idTable, numberTable, status, capacity);
     }
 }
