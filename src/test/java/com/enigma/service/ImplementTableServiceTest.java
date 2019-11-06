@@ -41,5 +41,11 @@ public class ImplementTableServiceTest {
         entitiesList.add(newTable2);
         assertEquals(entitiesList,tableService.getAllTable());
     }
+    @Test
+    public void shold_return_same_data_as_id_when_getTableById(){
+        TableEntities newTable =new TableEntities(1,"Avaliable",4);
+        newTable = tableRepositories.save(newTable);
+        assertEquals(newTable,tableService.getTableById(newTable.getIdTable()));
+    }
 
 }

@@ -8,4 +8,6 @@ public interface TableService {
     TableEntities saveTable(TableEntities newTable);
 
     List<TableEntities> getAllTable();
+
+    TableEntities getTableById(String idTable);
 }

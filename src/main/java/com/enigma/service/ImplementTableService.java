@@ -21,4 +21,9 @@ public class ImplementTableService implements TableService {
     public List<TableEntities> getAllTable() {
         return tableRepositories.findAll();
     }
+
+    @Override
+    public TableEntities getTableById(String idTable) {
+        return tableRepositories.findById(idTable).get();
+    }
 }
