@@ -1,4 +1,7 @@
 package com.enigma.repositories;
 
-public interface FoodRepositories {
+import com.enigma.entity.FoodEntities;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface FoodRepositories extends JpaRepository<FoodEntities,String> {
 }
