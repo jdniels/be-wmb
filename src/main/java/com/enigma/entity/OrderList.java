@@ -5,7 +5,8 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-
+@Entity
+@Table(name = "order_list")
 public class OrderList {
     @Id
     @GeneratedValue(generator="system-uuid")
