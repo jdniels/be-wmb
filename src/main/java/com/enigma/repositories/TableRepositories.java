@@ -1,9 +1,9 @@
 package com.enigma.repositories;
 
-import com.enigma.entity.FoodEntities;
+import com.enigma.entity.TableEntities;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface FoodRepositories extends JpaRepository<FoodEntities,String> {
+public interface TableRepositories extends JpaRepository<TableEntities,String> {
 }
