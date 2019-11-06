@@ -47,5 +47,12 @@ public class ImplementTableServiceTest {
         newTable = tableRepositories.save(newTable);
         assertEquals(newTable,tableService.getTableById(newTable.getIdTable()));
     }
+    @Test
+    public void should_0_data_when_deleteById(){
+        TableEntities newTable =new TableEntities(1,"Avaliable",4);
+        newTable = tableRepositories.save(newTable);
+        tableService.deleteById(newTable.getIdTable());
+        assertEquals(0,tableRepositories.findAll().size());
+    }
 
 }

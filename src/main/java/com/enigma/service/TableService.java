@@ -10,4 +10,6 @@ public interface TableService {
     List<TableEntities> getAllTable();
 
     TableEntities getTableById(String idTable);
+
+    void deleteById(String idTable);
 }

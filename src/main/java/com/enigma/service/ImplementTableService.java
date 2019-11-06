@@ -26,4 +26,9 @@ public class ImplementTableService implements TableService {
     public TableEntities getTableById(String idTable) {
         return tableRepositories.findById(idTable).get();
     }
+
+    @Override
+    public void deleteById(String idTable) {
+        tableRepositories.deleteById(idTable);
+    }
 }
