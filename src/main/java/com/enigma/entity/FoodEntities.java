@@ -17,13 +17,13 @@ public class FoodEntities {
     @GenericGenerator(name="system-uuid",strategy = "uuid")
     private String idFood;
     private String foodName;
-    private String type;
+    private String typeFood;
     private BigDecimal price;
     private Integer quantity;
 
-    public FoodEntities(String foodName, String type, BigDecimal price, Integer quantity) {
+    public FoodEntities(String foodName, String typeFood, BigDecimal price, Integer quantity) {
         this.foodName = foodName;
-        this.type = type;
+        this.typeFood = typeFood;
         this.price = price;
         this.quantity = quantity;
     }
@@ -47,12 +47,12 @@ public class FoodEntities {
         this.foodName = foodName;
     }
 
-    public String getType() {
-        return type;
+    public String getTypeFood() {
+        return typeFood;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setTypeFood(String typeFood) {
+        this.typeFood = typeFood;
     }
 
     public BigDecimal getPrice() {
@@ -78,13 +78,13 @@ public class FoodEntities {
         FoodEntities that = (FoodEntities) o;
         return Objects.equals(idFood, that.idFood) &&
                 Objects.equals(foodName, that.foodName) &&
-                Objects.equals(type, that.type) &&
+                Objects.equals(typeFood, that.typeFood) &&
                 Objects.equals(quantity, that.quantity) &&
                 price.compareTo(that.getPrice())==0;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idFood, foodName, type, price, quantity);
+        return Objects.hash(idFood, foodName, typeFood, price, quantity);
     }
 }
