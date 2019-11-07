@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 @Entity
 @Table(name = "food_menu")
@@ -68,5 +69,22 @@ public class FoodEntities {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FoodEntities that = (FoodEntities) o;
+        return Objects.equals(idFood, that.idFood) &&
+                Objects.equals(foodName, that.foodName) &&
+                Objects.equals(type, that.type) &&
+                Objects.equals(quantity, that.quantity) &&
+                price.compareTo(that.getPrice())==0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idFood, foodName, type, price, quantity);
     }
 }

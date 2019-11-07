@@ -17,6 +17,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.junit.Assert.*;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 @RunWith(SpringRunner.class)
@@ -50,5 +51,9 @@ public class TableControllerTest {
                 .content(mapper.writeValueAsString(newTable))).andReturn().getResponse().getContentAsString();
         newTable = new ObjectMapper().readValue(response,TableEntities.class);
         Assert.assertEquals(newTable,tableRepositories.findById(newTable.getIdTable()).get());
+    }
+    @Test
+    public void should_return_StatusOk_whenGetAllData() throws Exception{
+        mockMvc.perform(get("/table")).andExpect(status().isOk());
     }
 }
