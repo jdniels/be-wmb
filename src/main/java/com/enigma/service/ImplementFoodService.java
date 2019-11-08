@@ -7,12 +7,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
 public class ImplementFoodService implements FoodService {
     @Autowired
     FoodRepositories foodRepositories;
+
     @Override
     public FoodEntities saveFood(FoodEntities newFood) {
         return foodRepositories.save(newFood);
@@ -36,5 +38,21 @@ public class ImplementFoodService implements FoodService {
     @Override
     public Page<FoodEntities> getAllFoodPagination(Pageable pageable) {
         return foodRepositories.findAll(pageable);
+    }
+
+    @Override
+    public void deductQuantityFood(String idFood, Integer quantity) {
+        FoodEntities food = getFoodById(idFood);
+        if (food.getQuantity() < quantity) {
+
+        } else {
+            food.deductQuantityFood(quantity);
+            saveFood(food);
+        }
+    }
+
+    @Override
+    public BigDecimal getFoodPriceById(String idFood) {
+        return getFoodById(idFood).getPrice();
     }
 }

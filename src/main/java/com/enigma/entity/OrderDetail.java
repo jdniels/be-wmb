@@ -5,6 +5,8 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Objects;
+
 @Entity
 @Table(name = "order_detail")
 public class OrderDetail {
@@ -27,9 +29,8 @@ public class OrderDetail {
     @Transient
     private String foodId;
 
-    public OrderDetail(Integer quantity, BigDecimal subTotal, String foodId) {
+    public OrderDetail(Integer quantity, String foodId) {
         this.quantity = quantity;
-        this.subTotal = subTotal;
         this.foodId = foodId;
     }
 
@@ -73,7 +74,7 @@ public class OrderDetail {
     }
 
     public void setSubTotal(BigDecimal subTotal) {
-        this.subTotal = subTotal;
+        this.subTotal = subTotal.multiply(new BigDecimal(this.quantity));
     }
 
     public String getFoodId() {
@@ -82,5 +83,22 @@ public class OrderDetail {
 
     public void setFoodId(String foodId) {
         this.foodId = foodId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        OrderDetail that = (OrderDetail) o;
+        return Objects.equals(idOrderDetail, that.idOrderDetail) &&
+                Objects.equals(orderId, that.orderId) &&
+                Objects.equals(food, that.food) &&
+                Objects.equals(quantity, that.quantity) &&
+                subTotal.compareTo(that.getSubTotal())==0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idOrderDetail, orderId, food, quantity, subTotal, foodId);
     }
 }
