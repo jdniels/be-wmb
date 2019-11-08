@@ -38,5 +38,8 @@ public class ImplementOrderListServiceTest {
         newTable=tableRepositories.save(newTable);
         FoodEntities newFood1 = new FoodEntities("pecel","MAKANAN",new BigDecimal(10000),50);
         FoodEntities newFood2 = new FoodEntities("sup","MAKANAN",new BigDecimal(10000),50);
+        newFood1=foodRepositories.save(newFood1);
+        newFood2=foodRepositories.save(newFood2);
+
     }
 }

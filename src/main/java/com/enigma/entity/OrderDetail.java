@@ -73,7 +73,7 @@ public class OrderDetail {
     }
 
     public void setSubTotal(BigDecimal subTotal) {
-        this.subTotal = subTotal;
+        this.subTotal = subTotal.multiply(new BigDecimal(this.quantity));
     }
 
     public String getFoodId() {
