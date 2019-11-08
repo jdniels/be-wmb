@@ -6,9 +6,12 @@ import com.enigma.entity.OrderList;
 import com.enigma.entity.TableEntities;
 import com.enigma.repositories.OrderListRepositories;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Service
 public class ImplementOrderListService implements OrderListService {
@@ -37,5 +40,20 @@ public class ImplementOrderListService implements OrderListService {
         items.setOrderId(newOrder);
         BigDecimal total=items.getSubTotal();
         newOrder.setTotalPrice(total);
+    }
+
+    @Override
+    public OrderList getOrderListById(String orderId) {
+        return orderListRepositories.findById(orderId).get();
+    }
+
+    @Override
+    public List<OrderList> getAllOrderList() {
+        return orderListRepositories.findAll();
+    }
+
+    @Override
+    public Page<OrderList> getOrderListPagination(Pageable pageable) {
+        return null;
     }
 }
