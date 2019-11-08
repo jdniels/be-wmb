@@ -23,15 +23,19 @@ public class ImplementOrderListService implements OrderListService {
         TableEntities table = tableService.getTableById(newOrder.getIdTable());
         newOrder.setTable(table);
         for (OrderDetail items:newOrder.getOrderDetails()) {
-            FoodEntities food= foodService.getFoodById(items.getFoodId());
-            items.setFood(food);
-            foodService.deductQuantityFood(items.getFood().getIdFood(),items.getQuantity());
-            items.setSubTotal(foodService.getFoodPriceById(items.getFood().getIdFood()));
-            items.setOrderId(newOrder);
-            BigDecimal total=items.getSubTotal();
-            newOrder.setTotalPrice(total);
+            SumOrderTotalAndSubTotal(newOrder, items);
             items.setOrderId(newOrder);
         }
         return orderListRepositories.save(newOrder);
+    }
+
+    private void SumOrderTotalAndSubTotal(OrderList newOrder, OrderDetail items) {
+        FoodEntities food= foodService.getFoodById(items.getFoodId());
+        items.setFood(food);
+        foodService.deductQuantityFood(items.getFood().getIdFood(),items.getQuantity());
+        items.setSubTotal(foodService.getFoodPriceById(items.getFood().getIdFood()));
+        items.setOrderId(newOrder);
+        BigDecimal total=items.getSubTotal();
+        newOrder.setTotalPrice(total);
     }
 }
