@@ -30,5 +30,4 @@ public class FoodController {
     public void deleteFood(@PathVariable String idFood){
         foodService.deleteFoodById(idFood);
     }
-
 }
