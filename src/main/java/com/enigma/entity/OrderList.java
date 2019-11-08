@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "order_list")
@@ -19,18 +20,19 @@ public class OrderList {
     @JoinColumn(name = "id_table")
     private TableEntities table;
     private String picCustomer;
-    private BigDecimal totalPrice;
+    private BigDecimal totalPrice= new BigDecimal(0);
     private Integer manyCustomers;
+
     @OneToMany(mappedBy = "orderId",cascade = CascadeType.PERSIST)
     private List<OrderDetail> orderDetails=new ArrayList<>();
 
     @Transient
     private  String idTable;
 
-    public OrderList(String picCustomer, BigDecimal totalPrice, Integer manyCustomers, String idTable) {
+    public OrderList(String picCustomer, Integer manyCustomers, List<OrderDetail> orderDetails, String idTable) {
         this.picCustomer = picCustomer;
-        this.totalPrice = totalPrice;
         this.manyCustomers = manyCustomers;
+        this.orderDetails = orderDetails;
         this.idTable = idTable;
     }
 
@@ -66,7 +68,8 @@ public class OrderList {
     }
 
     public void setTotalPrice(BigDecimal totalPrice) {
-        this.totalPrice = totalPrice;
+
+        this.totalPrice = this.totalPrice.add(totalPrice);
     }
 
     public Integer getManyCustomers() {
@@ -91,5 +94,23 @@ public class OrderList {
 
     public void setIdTable(String idTable) {
         this.idTable = idTable;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        OrderList orderList = (OrderList) o;
+        return Objects.equals(idOrder, orderList.idOrder) &&
+                Objects.equals(table, orderList.table) &&
+                Objects.equals(picCustomer, orderList.picCustomer) &&
+                Objects.equals(totalPrice, orderList.totalPrice) &&
+                Objects.equals(manyCustomers, orderList.manyCustomers) &&
+                Objects.equals(orderDetails, orderList.orderDetails);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idOrder, table, picCustomer, totalPrice, manyCustomers, orderDetails, idTable);
     }
 }

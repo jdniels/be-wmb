@@ -8,6 +8,8 @@ import com.enigma.repositories.OrderListRepositories;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+
 @Service
 public class ImplementOrderListService implements OrderListService {
     @Autowired
@@ -26,8 +28,10 @@ public class ImplementOrderListService implements OrderListService {
             foodService.deductQuantityFood(items.getFood().getIdFood(),items.getQuantity());
             items.setSubTotal(foodService.getFoodPriceById(items.getFood().getIdFood()));
             items.setOrderId(newOrder);
-
+            BigDecimal total=items.getSubTotal();
+            newOrder.setTotalPrice(total);
+            items.setOrderId(newOrder);
         }
-        return null;
+        return orderListRepositories.save(newOrder);
     }
 }
