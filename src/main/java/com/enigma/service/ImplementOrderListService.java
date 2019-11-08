@@ -4,6 +4,7 @@ import com.enigma.entity.FoodEntities;
 import com.enigma.entity.OrderDetail;
 import com.enigma.entity.OrderList;
 import com.enigma.entity.TableEntities;
+import com.enigma.exeption.StatusTableException;
 import com.enigma.repositories.OrderListRepositories;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,12 +25,21 @@ public class ImplementOrderListService implements OrderListService {
     @Override
     public OrderList saveOrder(OrderList newOrder) {
         TableEntities table = tableService.getTableById(newOrder.getIdTable());
+        updateStatusTable(table);
         newOrder.setTable(table);
         for (OrderDetail items:newOrder.getOrderDetails()) {
             SumOrderTotalAndSubTotal(newOrder, items);
             items.setOrderId(newOrder);
         }
         return orderListRepositories.save(newOrder);
+    }
+
+    private void updateStatusTable(TableEntities table) {
+        if (table.getStatus().equals("AVAILABLE")) {
+            table.setStatus("DINING");
+        }else{
+            throw new StatusTableException();
+        }
     }
 
     private void SumOrderTotalAndSubTotal(OrderList newOrder, OrderDetail items) {
