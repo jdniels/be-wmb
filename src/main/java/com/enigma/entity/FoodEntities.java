@@ -87,4 +87,8 @@ public class FoodEntities {
     public int hashCode() {
         return Objects.hash(idFood, foodName, typeFood, price, quantity);
     }
+
+    public void deductQuantityFood(Integer quantity){
+        this.quantity=this.quantity-quantity;
+    }
 }
