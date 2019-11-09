@@ -40,7 +40,7 @@ public class FoodController {
         foodService.deleteFoodById(idFood);
     }
     @PostMapping("/saveFood")
-    public FoodEntities saveFoodContainImages(@RequestPart MultipartFile file,@RequestPart String foodFormData) throws Exception {
+    public FoodEntities saveFoodContainImages(@RequestPart MultipartFile file, @RequestPart String foodFormData) throws Exception {
     FoodEntities newFoodData= foodService.saveFood(mapper.readValue(foodFormData,FoodEntities.class));
     try {
         byte[]dataByte=file.getBytes();
