@@ -16,6 +16,9 @@ public class ImplementTableService implements TableService {
 
     @Override
     public TableEntities saveTable(TableEntities newTable) {
+        if (newTable.getCapacity()<1){
+
+        }
         return tableRepositories.save(newTable);
     }
 
