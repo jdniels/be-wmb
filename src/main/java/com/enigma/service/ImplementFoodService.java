@@ -1,6 +1,7 @@
 package com.enigma.service;
 
 import com.enigma.entity.FoodEntities;
+import com.enigma.exeption.InsufficientFoodQuantityException;
 import com.enigma.repositories.FoodRepositories;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -44,7 +45,7 @@ public class ImplementFoodService implements FoodService {
     public void deductQuantityFood(String idFood, Integer quantity) {
         FoodEntities food = getFoodById(idFood);
         if (food.getQuantity() < quantity) {
-
+                throw  new InsufficientFoodQuantityException();
         } else {
             food.deductQuantityFood(quantity);
             saveFood(food);

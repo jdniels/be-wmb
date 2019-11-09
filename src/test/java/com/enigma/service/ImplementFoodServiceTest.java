@@ -2,6 +2,7 @@ package com.enigma.service;
 
 import com.enigma.entity.FoodEntities;
 import com.enigma.repositories.FoodRepositories;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,6 +26,9 @@ public class ImplementFoodServiceTest {
     FoodService foodService;
     @Before
     public void setUp() throws Exception {
+    foodRepositories.deleteAll();
+    }@After
+    public void teardown() throws Exception {
     foodRepositories.deleteAll();
     }
     @Test

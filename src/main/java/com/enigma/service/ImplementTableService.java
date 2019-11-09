@@ -1,6 +1,7 @@
 package com.enigma.service;
 
 import com.enigma.entity.TableEntities;
+import com.enigma.exeption.TableCapacityException;
 import com.enigma.repositories.TableRepositories;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,7 +17,12 @@ public class ImplementTableService implements TableService {
 
     @Override
     public TableEntities saveTable(TableEntities newTable) {
-        return tableRepositories.save(newTable);
+        if (newTable.getCapacity() < 1 || newTable.getCapacity() == null){
+            throw new TableCapacityException();
+        }else{
+            newTable =tableRepositories.save(newTable);
+        }
+        return newTable;
     }
 
     @Override
@@ -37,5 +43,10 @@ public class ImplementTableService implements TableService {
     @Override
     public Page<TableEntities> getAllWithPagination(Pageable pageable) {
         return tableRepositories.findAll(pageable);
+    }
+
+    @Override
+    public List<TableEntities> getTableAvailable(String status) {
+        return tableRepositories.findTableEntitiesByStatus(status);
     }
 }
