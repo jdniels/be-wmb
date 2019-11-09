@@ -2,6 +2,7 @@ package com.enigma.service;
 
 import com.enigma.entity.TableEntities;
 import com.enigma.repositories.TableRepositories;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,6 +25,10 @@ public class ImplementTableServiceTest {
     TableService tableService;
     @Before
     public void setup(){
+        tableRepositories.deleteAll();
+    }
+    @After
+    public void teardown(){
         tableRepositories.deleteAll();
     }
     @Test
