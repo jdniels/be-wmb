@@ -44,4 +44,9 @@ public class ImplementTableService implements TableService {
     public Page<TableEntities> getAllWithPagination(Pageable pageable) {
         return tableRepositories.findAll(pageable);
     }
+
+    @Override
+    public List<TableEntities> getTableAvailable(String status) {
+        return tableRepositories.findTableEntitiesByStatus(status);
+    }
 }

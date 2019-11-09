@@ -39,4 +39,8 @@ public class TableController {
         Pageable pageable = PageRequest.of(page,size);
         return tableService.getAllWithPagination(pageable);
     }
+    @GetMapping("/tableAvailable")
+    public List<TableEntities>getTableAvailable(){
+        return tableService.getTableAvailable("AVAILABLE");
+    }
 }
