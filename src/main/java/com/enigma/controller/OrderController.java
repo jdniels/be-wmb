@@ -21,6 +21,7 @@ public class OrderController {
     public OrderList saveOrder(@RequestBody OrderList orderForm){
         return orderListService.saveOrder(orderForm);
     }
+
     @GetMapping("/order")
     public List<OrderList> getAllOrder(){
         return orderListService.getAllOrderList();
