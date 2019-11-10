@@ -12,7 +12,6 @@ import java.util.List;
 public class TransactionController {
     @Autowired
     TransactionService transactionService;
-
     @PostMapping("/transaction")
     public Transaction saveTransaction(@RequestBody Transaction newTransaction){
         return transactionService.saveTransaction(newTransaction);
@@ -20,5 +19,9 @@ public class TransactionController {
     @GetMapping("/transaction")
     public List<Transaction> getTransactions(){
         return transactionService.getTransactions();
+    }
+    @GetMapping("/transaction/{idTransaction}")
+    public Transaction getTransactionById(@PathVariable String idTransaction){
+        return transactionService.getTransactionById(idTransaction);
     }
 }

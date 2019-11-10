@@ -23,4 +23,14 @@ public class ImplementTransaction implements TransactionService {
         return transactionRepositories.findAll();
     }
 
+    @Override
+    public Transaction getTransactionById(String idTransaction) {
+        return transactionRepositories.findById(idTransaction).get();
+    }
+
+    @Override
+    public void deleteTransaction(String idTransaction) {
+         transactionRepositories.deleteById(idTransaction);
+    }
+
 }
