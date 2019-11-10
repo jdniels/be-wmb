@@ -1,4 +1,4 @@
-package com.enigma.service;
+package com.enigma.service.serviceImpl;
 
 import com.enigma.entity.FoodEntities;
 import com.enigma.entity.OrderDetail;
@@ -7,6 +7,9 @@ import com.enigma.entity.TableEntities;
 import com.enigma.exeption.StatusTableException;
 import com.enigma.exeption.TableCapacityException;
 import com.enigma.repositories.OrderListRepositories;
+import com.enigma.service.FoodService;
+import com.enigma.service.OrderListService;
+import com.enigma.service.TableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

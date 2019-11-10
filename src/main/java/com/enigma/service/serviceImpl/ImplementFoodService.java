@@ -1,8 +1,9 @@
-package com.enigma.service;
+package com.enigma.service.serviceImpl;
 
 import com.enigma.entity.FoodEntities;
 import com.enigma.exeption.InsufficientFoodQuantityException;
 import com.enigma.repositories.FoodRepositories;
+import com.enigma.service.FoodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

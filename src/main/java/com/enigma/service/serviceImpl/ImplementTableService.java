@@ -1,8 +1,9 @@
-package com.enigma.service;
+package com.enigma.service.serviceImpl;
 
 import com.enigma.entity.TableEntities;
 import com.enigma.exeption.TableCapacityException;
 import com.enigma.repositories.TableRepositories;
+import com.enigma.service.TableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
