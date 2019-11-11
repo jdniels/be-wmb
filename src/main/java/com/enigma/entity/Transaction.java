@@ -17,8 +17,8 @@ public class Transaction {
     @GenericGenerator(name="system-uuid",strategy = "uuid")
     private String idTransaction;
     private BigDecimal total;
-    private BigDecimal change;
-    private BigDecimal pay;
+    private BigDecimal change=new BigDecimal(0);
+    private BigDecimal pay = new BigDecimal(0);
     private String paymentStatus;
 
     @ManyToOne

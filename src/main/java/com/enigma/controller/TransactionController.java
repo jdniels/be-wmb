@@ -12,10 +12,6 @@ import java.util.List;
 public class TransactionController {
     @Autowired
     TransactionService transactionService;
-    @PostMapping("/transaction")
-    public Transaction saveTransaction(@RequestBody Transaction newTransaction){
-        return transactionService.saveTransaction(newTransaction);
-    }
     @GetMapping("/transaction")
     public List<Transaction> getTransactions(){
         return transactionService.getTransactions();
