@@ -43,8 +43,8 @@ public class ImplementOrderListService implements OrderListService {
                 items.setOrderId(newOrder);
             }
         }
-        newOrder =orderListRepositories.save(newOrder);
-        transactionService.saveDataTransaction(newOrder);
+        newOrder = orderListRepositories.save(newOrder);
+        transactionService.saveTransaction(newOrder);
         return newOrder;
     }
 

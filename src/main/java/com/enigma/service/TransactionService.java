@@ -1,7 +1,16 @@
 package com.enigma.service;
 
 import com.enigma.entity.OrderList;
+import com.enigma.entity.Transaction;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public interface TransactionService {
-    void saveDataTransaction(OrderList newOrder);
+    Transaction saveTransaction(OrderList newOrderList);
+
+    List<Transaction> getTransactions();
+    Transaction getTransactionById(String idTransaction);
+    void deleteTransaction(String idTransaction);
+
 }
