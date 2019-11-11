@@ -7,6 +7,7 @@ import com.enigma.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -20,6 +21,8 @@ public class ImplementTransaction implements TransactionService {
         transactionData.setOrderList(newOrderList);
         transactionData.setTotal(newOrderList.getTotalPrice());
         transactionData.setPaymentStatus("UNPAID");
+        transactionData.setPay(new BigDecimal(0));
+        transactionData.setPaymentMethod("not selected yet");
         transactionData =transactionRepositories.save(transactionData);
         return transactionData;
     }

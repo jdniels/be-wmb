@@ -57,4 +57,11 @@ public class ImplementFoodService implements FoodService {
     public BigDecimal getFoodPriceById(String idFood) {
         return getFoodById(idFood).getPrice();
     }
+
+    @Override
+    public FoodEntities updateFoodQuantity(FoodEntities newData) {
+        FoodEntities food =getFoodById(newData.getIdFood());
+        food.setQuantity(newData.getQuantity());
+        return foodRepositories.save(food);
+    }
 }

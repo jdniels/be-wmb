@@ -33,7 +33,7 @@ public class ImplementOrderListService implements OrderListService {
     @Override
     public OrderList saveOrder(OrderList newOrder) {
         TableEntities table = tableService.getTableById(newOrder.getIdTable());
-        if (newOrder.getManyCustomers() > table.getCapacity()) {
+        if (isTotalCustomersGreaterThanCapacityTable(newOrder, table)) {
             throw new TableCapacityException();
         } else {
             updateStatusTable(table);
@@ -46,6 +46,10 @@ public class ImplementOrderListService implements OrderListService {
         newOrder = orderListRepositories.save(newOrder);
         transactionService.saveTransaction(newOrder);
         return newOrder;
+    }
+
+    private boolean isTotalCustomersGreaterThanCapacityTable(OrderList newOrder, TableEntities table) {
+        return newOrder.getManyCustomers() > table.getCapacity();
     }
 
     private void updateStatusTable(TableEntities table) {
