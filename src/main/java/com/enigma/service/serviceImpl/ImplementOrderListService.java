@@ -10,6 +10,7 @@ import com.enigma.repositories.OrderListRepositories;
 import com.enigma.service.FoodService;
 import com.enigma.service.OrderListService;
 import com.enigma.service.TableService;
+import com.enigma.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +27,8 @@ public class ImplementOrderListService implements OrderListService {
     TableService tableService;
     @Autowired
     FoodService foodService;
+    @Autowired
+    TransactionService transactionService;
 
     @Override
     public OrderList saveOrder(OrderList newOrder) {
@@ -40,7 +43,9 @@ public class ImplementOrderListService implements OrderListService {
                 items.setOrderId(newOrder);
             }
         }
-        return orderListRepositories.save(newOrder);
+        newOrder =orderListRepositories.save(newOrder);
+        transactionService.saveDataTransaction(newOrder);
+        return newOrder;
     }
 
     private void updateStatusTable(TableEntities table) {

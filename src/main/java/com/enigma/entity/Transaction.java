@@ -19,6 +19,9 @@ public class Transaction {
     private BigDecimal pay;
     private String paymentStatus;
 
+    public Transaction() {
+    }
+
     @ManyToOne
     @JoinColumn(name = "id_order")
     private OrderList orderList;
