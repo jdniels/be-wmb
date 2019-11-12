@@ -18,10 +18,10 @@ public class FoodEntities {
     private String idFood;
     private String foodName;
     private String typeFood;
-    private BigDecimal price;
+    private Integer price;
     private Integer quantity;
 
-    public FoodEntities(String foodName, String typeFood, BigDecimal price, Integer quantity) {
+    public FoodEntities(String foodName, String typeFood, Integer price, Integer quantity) {
         this.foodName = foodName;
         this.typeFood = typeFood;
         this.price = price;
@@ -55,11 +55,11 @@ public class FoodEntities {
         this.typeFood = typeFood;
     }
 
-    public BigDecimal getPrice() {
+    public Integer getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(Integer price) {
         this.price = price;
     }
 

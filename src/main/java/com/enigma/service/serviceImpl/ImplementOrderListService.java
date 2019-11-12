@@ -66,7 +66,7 @@ public class ImplementOrderListService implements OrderListService {
         foodService.deductQuantityFood(items.getFood().getIdFood(), items.getQuantity());
         items.setSubTotal(foodService.getFoodPriceById(items.getFood().getIdFood()));
         items.setOrderId(newOrder);
-        BigDecimal total = items.getSubTotal();
+        Integer total = items.getSubTotal();
         newOrder.setTotalPrice(total);
     }
 
@@ -83,5 +83,10 @@ public class ImplementOrderListService implements OrderListService {
     @Override
     public Page<OrderList> getOrderListPagination(Pageable pageable) {
         return orderListRepositories.findAll(pageable);
+    }
+
+    @Override
+    public void deleteAll() {
+        orderListRepositories.deleteAll();
     }
 }

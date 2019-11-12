@@ -16,10 +16,10 @@ public class Transaction {
     @GeneratedValue(generator="system-uuid")
     @GenericGenerator(name="system-uuid",strategy = "uuid")
     private String idTransaction;
-    private BigDecimal total;
+    private Integer total;
     private String paymentMethod;
-    private BigDecimal change = new BigDecimal(0);
-    private BigDecimal pay ;
+    private Integer change =0;
+    private Integer pay ;
     private String paymentStatus;
 
     @ManyToOne
@@ -29,7 +29,7 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(BigDecimal total, String paymentMethod, BigDecimal change, BigDecimal pay, String paymentStatus, OrderList orderList) {
+    public Transaction(Integer total, String paymentMethod, Integer change, Integer pay, String paymentStatus, OrderList orderList) {
         this.total = total;
         this.paymentMethod = paymentMethod;
         this.change = change;
@@ -46,28 +46,28 @@ public class Transaction {
         this.idTransaction = idTransaction;
     }
 
-    public BigDecimal getTotal() {
+    public Integer getTotal() {
         return total;
     }
 
-    public void setTotal(BigDecimal total) {
+    public void setTotal(Integer total) {
         this.total = total;
     }
 
-    public BigDecimal getPay() {
+    public Integer getPay() {
         return pay;
     }
 
-    public void setPay(BigDecimal pay) {
+    public void setPay(Integer pay) {
         this.pay = pay;
     }
 
-    public BigDecimal getChange() {
+    public Integer getChange() {
         return change;
     }
 
-    public void setChange(BigDecimal total) {
-        this.change =this.pay.subtract(total);
+    public void setChange(Integer total) {
+        this.change =this.pay-total;
     }
 
     public String getPaymentStatus() {

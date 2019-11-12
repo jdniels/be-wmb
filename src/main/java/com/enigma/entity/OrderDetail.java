@@ -24,7 +24,7 @@ public class OrderDetail {
     @JoinColumn(name = "id_food")
     private FoodEntities food;
     private Integer quantity;
-    private BigDecimal subTotal;
+    private Integer subTotal;
 
     @Transient
     private String foodId;
@@ -69,12 +69,12 @@ public class OrderDetail {
         this.quantity = quantity;
     }
 
-    public BigDecimal getSubTotal() {
+    public Integer getSubTotal() {
         return subTotal;
     }
 
-    public void setSubTotal(BigDecimal subTotal) {
-        this.subTotal = subTotal.multiply(new BigDecimal(this.quantity));
+    public void setSubTotal(Integer subTotal) {
+        this.subTotal = subTotal*this.quantity;
     }
 
     public String getFoodId() {
@@ -94,7 +94,7 @@ public class OrderDetail {
                 Objects.equals(orderId, that.orderId) &&
                 Objects.equals(food, that.food) &&
                 Objects.equals(quantity, that.quantity) &&
-                subTotal.compareTo(that.getSubTotal())==0;
+                Objects.equals(subTotal, that.subTotal);
     }
 
     @Override

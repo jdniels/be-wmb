@@ -20,4 +20,8 @@ public class TransactionController {
     public Transaction getTransactionById(@PathVariable String idTransaction){
         return transactionService.getTransactionById(idTransaction);
     }
+    @PostMapping("/pay")
+    public Transaction updatePayment(@RequestBody Transaction transaction){
+        return  transactionService.updatePaymentStatus(transaction);
+    }
 }

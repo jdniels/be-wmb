@@ -12,5 +12,6 @@ public interface TransactionService {
     List<Transaction> getTransactions();
     Transaction getTransactionById(String idTransaction);
     void deleteTransaction(String idTransaction);
+    Transaction updatePaymentStatus(Transaction transaction);
 
 }
