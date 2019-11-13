@@ -11,5 +11,6 @@ public interface OrderListService {
     OrderList getOrderListById(String orderId);
     List<OrderList>getAllOrderList();
     Page<OrderList>getOrderListPagination(Pageable pageable);
+    OrderList getOrderByTableId(String idTable);
     void deleteAll();
 }
