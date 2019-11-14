@@ -8,6 +8,8 @@ import com.enigma.repositories.TransactionRepositories;
 import com.enigma.service.TableService;
 import com.enigma.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -43,11 +45,6 @@ public class ImplementTransaction implements TransactionService {
     }
 
     @Override
-    public void deleteTransaction(String idTransaction) {
-         transactionRepositories.deleteById(idTransaction);
-    }
-
-    @Override
     public Transaction updatePaymentStatus(Transaction transaction) {
         Transaction transactionData= getTransactionById(transaction.getIdTransaction());
         if (transaction.getPay()<transactionData.getTotal()){
@@ -62,9 +59,15 @@ public class ImplementTransaction implements TransactionService {
         return transactionData;
     }
 
+
     private void updateStatusTable(Transaction transaction) {
         TableEntities table= tableService.getTableById(transaction.getOrderList().getTable().getIdTable());
         table.setStatus("AVAILABLE");
         tableService.saveTable(table);
+    }
+
+    @Override
+    public Page<Transaction> getTransactionByPage(Pageable pageable) {
+        return transactionRepositories.findAll(pageable);
     }
 }
