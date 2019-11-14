@@ -18,7 +18,7 @@ public class Transaction {
     private String idTransaction;
     private Integer total;
     private String paymentMethod;
-    private Integer change =0;
+    private Integer change;
     private Integer pay ;
     private String paymentStatus;
 

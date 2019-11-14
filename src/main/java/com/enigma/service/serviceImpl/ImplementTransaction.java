@@ -49,14 +49,17 @@ public class ImplementTransaction implements TransactionService {
 
     @Override
     public Transaction updatePaymentStatus(Transaction transaction) {
-        if (transaction.getPay()<transaction.getTotal()){
+        Transaction transactionData= getTransactionById(transaction.getIdTransaction());
+        if (transaction.getPay()<transactionData.getTotal()){
             throw new NotEnoughtMoneyException();
         }else {
-            transaction.setPaymentStatus("PAID");
-            transaction.setChange(transaction.getTotal());
+            transactionData.setPaymentStatus("PAID");
+            transactionData.setPay(transaction.getPay());
+            transactionData.setChange(transaction.getTotal());
             updateStatusTable(transaction);
+            transactionData=transactionRepositories.save(transactionData);
         }
-        return transactionRepositories.save(transaction);
+        return transactionData;
     }
 
     private void updateStatusTable(Transaction transaction) {
