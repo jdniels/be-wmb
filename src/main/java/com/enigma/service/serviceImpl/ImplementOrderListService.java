@@ -86,6 +86,12 @@ public class ImplementOrderListService implements OrderListService {
     }
 
     @Override
+    public OrderList getOrderByTableId(String idTable) {
+        TableEntities tableEntities = tableService.getTableById(idTable);
+        return orderListRepositories.getOrderListByTable(tableEntities);
+    }
+
+    @Override
     public void deleteAll() {
         orderListRepositories.deleteAll();
     }

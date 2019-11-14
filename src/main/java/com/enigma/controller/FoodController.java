@@ -5,6 +5,9 @@ import com.enigma.service.FoodService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -34,6 +37,11 @@ public class FoodController {
     @GetMapping("/food/{idFood}")
     public FoodEntities getFoodById(@PathVariable String idFood){
         return foodService.getFoodById(idFood);
+    }
+    @GetMapping("/getFood")
+    public Page<FoodEntities> getFoodByPage(@RequestParam Integer size, @RequestParam Integer page){
+        Pageable pageable = PageRequest.of(size, page);
+        return foodService.getAllFoodPagination(pageable);
     }
     @DeleteMapping("/food/{idFood}")
     public void deleteFood(@PathVariable String idFood){

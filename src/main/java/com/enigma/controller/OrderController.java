@@ -35,5 +35,9 @@ public class OrderController {
         Pageable pageable = PageRequest.of(page, size);
         return orderListService.getOrderListPagination(pageable);
     }
+    @GetMapping("/orberByTable/{idTable}")
+    public OrderList getOrderByTableId(@PathVariable String idTable){
+        return orderListService.getOrderByTableId(idTable);
+    }
 
 }
