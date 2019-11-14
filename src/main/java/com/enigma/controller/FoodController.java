@@ -59,5 +59,9 @@ public class FoodController {
     }
     return newFoodData;
     }
+    @PostMapping("/updateFood")
+    public FoodEntities updateFoodById(@RequestBody FoodEntities foodData){
+        return foodService.updateFood(foodData);
+    }
 
 }

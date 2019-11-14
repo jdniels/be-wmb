@@ -58,9 +58,12 @@ public class ImplementFoodService implements FoodService {
     }
 
     @Override
-    public FoodEntities updateFoodQuantity(FoodEntities newData) {
+    public FoodEntities updateFood(FoodEntities newData) {
         FoodEntities food =getFoodById(newData.getIdFood());
+        food.setFoodName(newData.getFoodName());
         food.setQuantity(newData.getQuantity());
+        food.setPrice(newData.getPrice());
+        food.setTypeFood(newData.getTypeFood());
         return foodRepositories.save(food);
     }
 }

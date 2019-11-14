@@ -14,5 +14,5 @@ public interface FoodService {
     Page<FoodEntities> getAllFoodPagination(Pageable pageable);
     void deductQuantityFood(String idFood,Integer quantity);
     Integer getFoodPriceById(String idFood);
-    FoodEntities updateFoodQuantity(FoodEntities newData);
+    FoodEntities updateFood(FoodEntities newData);
 }
