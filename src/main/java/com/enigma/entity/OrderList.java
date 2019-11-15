@@ -106,8 +106,7 @@ public class OrderList {
                 Objects.equals(table, orderList.table) &&
                 Objects.equals(picCustomer, orderList.picCustomer) &&
                 Objects.equals(totalPrice, orderList.totalPrice) &&
-                Objects.equals(manyCustomers, orderList.manyCustomers) &&
-                Objects.equals(orderDetails, orderList.orderDetails);
+                Objects.equals(manyCustomers, orderList.manyCustomers);
     }
 
     @Override

@@ -28,9 +28,8 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(Integer total, String paymentMethod, Integer change, Integer pay, String paymentStatus, OrderList orderList) {
+    public Transaction(Integer total, Integer pay, String paymentStatus, OrderList orderList) {
         this.total = total;
-        this.change = change;
         this.pay = pay;
         this.paymentStatus = paymentStatus;
         this.orderList = orderList;
@@ -101,8 +100,7 @@ public class Transaction {
                 Objects.equals(total, that.total) &&
                 Objects.equals(change, that.change) &&
                 Objects.equals(pay, that.pay) &&
-                Objects.equals(paymentStatus, that.paymentStatus) &&
-                Objects.equals(orderList, that.orderList);
+                Objects.equals(paymentStatus, that.paymentStatus);
     }
 
     @Override

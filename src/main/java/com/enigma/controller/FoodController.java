@@ -30,18 +30,13 @@ public class FoodController {
     public FoodEntities saveFood(@RequestBody FoodEntities foodEntities){
         return foodService.saveFood(foodEntities);
     }
-    @GetMapping("/food")
+    @GetMapping("/foods")
     public List<FoodEntities> getAllFood(){
         return foodService.getAllFood();
     }
     @GetMapping("/food/{idFood}")
     public FoodEntities getFoodById(@PathVariable String idFood){
         return foodService.getFoodById(idFood);
-    }
-    @GetMapping("/getFood")
-    public Page<FoodEntities> getFoodByPage(@RequestParam Integer size, @RequestParam Integer page){
-        Pageable pageable = PageRequest.of(size, page);
-        return foodService.getAllFoodPagination(pageable);
     }
     @DeleteMapping("/food/{idFood}")
     public void deleteFood(@PathVariable String idFood){

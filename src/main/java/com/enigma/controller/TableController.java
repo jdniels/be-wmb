@@ -20,19 +20,13 @@ public class TableController {
     public TableEntities saveTable(@RequestBody TableEntities newTable) {
         return tableService.saveTable(newTable);
     }
-
     @GetMapping("/table")
     public List<TableEntities> getAllTable() {
         return tableService.getAllTable();
     }
-
     @GetMapping("/table/{idTable}")
     public TableEntities getTableById(@PathVariable String idTable) {
         return tableService.getTableById(idTable);
-    }
-    @DeleteMapping("/table/{idTable}")
-    public void deleteById(@PathVariable String idTable){
-        tableService.deleteById(idTable);
     }
     @GetMapping("/getTable")
     public Page<TableEntities>getTableWithPagination(@RequestParam Integer page,@RequestParam Integer size){
