@@ -43,11 +43,19 @@ public class ImplementTableService implements TableService {
 
     @Override
     public Page<TableEntities> getAllWithPagination(Pageable pageable) {
-        return tableRepositories.findAll(pageable);
+        return tableRepositories.findAllByOrderByNumberTableAsc(pageable);
     }
 
     @Override
     public List<TableEntities> getTableAvailable(String status) {
         return tableRepositories.findTableEntitiesByStatus(status);
+    }
+
+    @Override
+    public TableEntities updateTable(TableEntities tableData) {
+        TableEntities table =getTableById(tableData.getIdTable());
+        table.setCapacity(tableData.getCapacity());
+        table.setNumberTable(tableData.getNumberTable());
+        return saveTable(table);
     }
 }

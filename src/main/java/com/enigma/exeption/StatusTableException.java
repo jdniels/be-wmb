@@ -8,7 +8,6 @@ public class StatusTableException extends RuntimeException {
     public StatusTableException(String s) {
         super(s);
     }
-
     public StatusTableException() {
         super("the status does not allow to be changed");
     }

@@ -4,6 +4,8 @@ import com.enigma.entity.FoodEntities;
 import com.enigma.entity.OrderDetail;
 import com.enigma.entity.OrderList;
 import com.enigma.entity.TableEntities;
+import com.enigma.exeption.InsufficientFoodQuantityException;
+import com.enigma.exeption.NullOrdersException;
 import com.enigma.exeption.StatusTableException;
 import com.enigma.exeption.TableCapacityException;
 import com.enigma.repositories.OrderListRepositories;
@@ -17,6 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -33,11 +36,12 @@ public class ImplementOrderListService implements OrderListService {
     @Override
     public OrderList saveOrder(OrderList newOrder) {
         TableEntities table = tableService.getTableById(newOrder.getIdTable());
-        if (isTotalCustomersGreaterThanCapacityTable(newOrder, table)) {
+        if (table.getCapacity() < newOrder.getManyCustomers()) {
             throw new TableCapacityException();
         } else {
             updateStatusTable(table);
             newOrder.setTable(table);
+            checkOrdersFood(newOrder);
             for (OrderDetail items : newOrder.getOrderDetails()) {
                 SumOrderTotalAndSubTotal(newOrder, items);
                 items.setOrderId(newOrder);
@@ -48,8 +52,11 @@ public class ImplementOrderListService implements OrderListService {
         return newOrder;
     }
 
-    private boolean isTotalCustomersGreaterThanCapacityTable(OrderList newOrder, TableEntities table) {
-        return newOrder.getManyCustomers() > table.getCapacity();
+    private void checkOrdersFood(OrderList newOrder) {
+        List<OrderDetail> none = new ArrayList<>();
+        if (newOrder.getOrderDetails().equals(none)) {
+            throw new NullOrdersException();
+        }
     }
 
     private void updateStatusTable(TableEntities table) {
@@ -63,11 +70,15 @@ public class ImplementOrderListService implements OrderListService {
     private void SumOrderTotalAndSubTotal(OrderList newOrder, OrderDetail items) {
         FoodEntities food = foodService.getFoodById(items.getFoodId());
         items.setFood(food);
-        foodService.deductQuantityFood(items.getFood().getIdFood(), items.getQuantity());
-        items.setSubTotal(foodService.getFoodPriceById(items.getFood().getIdFood()));
-        items.setOrderId(newOrder);
-        Integer total = items.getSubTotal();
-        newOrder.setTotalPrice(total);
+        if (items.getFood().getQuantity() < items.getQuantity()) {
+            throw new InsufficientFoodQuantityException();
+        } else {
+            foodService.deductQuantityFood(items.getFood().getIdFood(), items.getQuantity());
+            items.setSubTotal(foodService.getFoodPriceById(items.getFood().getIdFood()));
+            items.setOrderId(newOrder);
+            Integer total = items.getSubTotal();
+            newOrder.setTotalPrice(total);
+        }
     }
 
     @Override
@@ -83,16 +94,5 @@ public class ImplementOrderListService implements OrderListService {
     @Override
     public Page<OrderList> getOrderListPagination(Pageable pageable) {
         return orderListRepositories.findAll(pageable);
-    }
-
-    @Override
-    public OrderList getOrderByTableId(String idTable) {
-        TableEntities tableEntities = tableService.getTableById(idTable);
-        return orderListRepositories.getOrderListByTable(tableEntities);
-    }
-
-    @Override
-    public void deleteAll() {
-        orderListRepositories.deleteAll();
     }
 }

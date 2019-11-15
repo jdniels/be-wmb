@@ -2,6 +2,7 @@ package com.enigma.service.serviceImpl;
 
 import com.enigma.entity.FoodEntities;
 import com.enigma.exeption.InsufficientFoodQuantityException;
+import com.enigma.exeption.NullOrdersException;
 import com.enigma.repositories.FoodRepositories;
 import com.enigma.service.FoodService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -4,9 +4,6 @@ package com.enigma.entity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -17,7 +14,6 @@ public class Transaction {
     @GenericGenerator(name="system-uuid",strategy = "uuid")
     private String idTransaction;
     private Integer total;
-    private String paymentMethod;
     private Integer change;
     private Integer pay ;
     private String paymentStatus;
@@ -25,13 +21,15 @@ public class Transaction {
     @ManyToOne
     @JoinColumn(name = "id_order")
     private OrderList orderList;
+    @ManyToOne
+    @JoinColumn(name = "id_table")
+    private TableEntities tableEntities;
 
     public Transaction() {
     }
 
     public Transaction(Integer total, String paymentMethod, Integer change, Integer pay, String paymentStatus, OrderList orderList) {
         this.total = total;
-        this.paymentMethod = paymentMethod;
         this.change = change;
         this.pay = pay;
         this.paymentStatus = paymentStatus;
@@ -86,12 +84,12 @@ public class Transaction {
         this.orderList = orderList;
     }
 
-    public String getPaymentMethod() {
-        return paymentMethod;
+    public TableEntities getTableEntities() {
+        return tableEntities;
     }
 
-    public void setPaymentMethod(String paymentMethod) {
-        this.paymentMethod = paymentMethod;
+    public void setTableEntities(TableEntities tableEntities) {
+        this.tableEntities = tableEntities;
     }
 
     @Override

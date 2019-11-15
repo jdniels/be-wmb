@@ -1,8 +1,8 @@
-package com.enigma.service;
+package com.enigma.service.serviceImpl;
 
 import com.enigma.entity.TableEntities;
 import com.enigma.repositories.TableRepositories;
-import org.junit.After;
+import com.enigma.service.TableService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,10 +27,6 @@ public class ImplementTableServiceTest {
     public void setup(){
         tableRepositories.deleteAll();
     }
-    @After
-    public void teardown(){
-        tableRepositories.deleteAll();
-    }
     @Test
     public void should_created_id_database_when_createTable(){
         TableEntities newTable =new TableEntities(1,"Avaliable",4);
@@ -43,7 +39,7 @@ public class ImplementTableServiceTest {
         TableEntities newTable2 =new TableEntities(2,"Avaliable",6);
         newTable1=tableRepositories.save(newTable1);
         newTable2=tableRepositories.save(newTable2);
-        List<TableEntities>entitiesList=new ArrayList<>();
+        List<TableEntities> entitiesList=new ArrayList<>();
         entitiesList.add(newTable1);
         entitiesList.add(newTable2);
         assertEquals(entitiesList,tableService.getAllTable());
@@ -70,5 +66,23 @@ public class ImplementTableServiceTest {
         Pageable pageable = PageRequest.of(0,2);
         assertEquals(2,tableService.getAllWithPagination(pageable).getTotalElements());
     }
+    @Test
+    public void getTableAvailable() {
+        TableEntities newTable1 =new TableEntities(1,"Avaliable",4);
+        TableEntities newTable2 =new TableEntities(2,"Dining",6);
+        tableRepositories.save(newTable1);
+        tableRepositories.save(newTable2);
+        assertEquals(1,tableService.getTableAvailable("Avaliable").size());
+    }
 
+    @Test
+    public void updateTable() {
+        TableEntities newTable1 =new TableEntities(1,"Avaliable",4);
+        TableEntities newTable2 =new TableEntities(2,"Avaliable",6);
+        newTable1=tableRepositories.save(newTable1);
+        newTable2.setIdTable(newTable1.getIdTable());
+        tableService.updateTable(newTable2);
+        assertEquals(tableRepositories.findById(newTable1.getIdTable()).get(),newTable2);
+
+    }
 }

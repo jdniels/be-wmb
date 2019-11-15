@@ -43,4 +43,8 @@ public class TableController {
     public List<TableEntities>getTableAvailable(){
         return tableService.getTableAvailable("AVAILABLE");
     }
+    @PostMapping("/updateTable")
+    public TableEntities updateTable(@RequestBody TableEntities tableData){
+        return tableService.updateTable(tableData);
+    }
 }

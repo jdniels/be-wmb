@@ -23,7 +23,7 @@ public class OrderList {
     private Integer totalPrice= 0;
     private Integer manyCustomers;
 
-    @OneToMany(mappedBy = "orderId",cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "orderId",cascade = CascadeType.ALL)
     private List<OrderDetail> orderDetails=new ArrayList<>();
 
     @Transient

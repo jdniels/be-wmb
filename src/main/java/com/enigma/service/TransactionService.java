@@ -15,4 +15,5 @@ public interface TransactionService {
     Transaction getTransactionById(String idTransaction);
     Transaction updatePaymentStatus(Transaction transaction);
     Page<Transaction> getTransactionByPage(Pageable pageable);
+    Transaction getTransactionByTable(String tableId);
 }

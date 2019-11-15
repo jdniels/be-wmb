@@ -17,4 +17,5 @@ public interface TableService {
 
     Page<TableEntities> getAllWithPagination(Pageable pageable);
     List<TableEntities>getTableAvailable(String status);
+    TableEntities updateTable(TableEntities tableData);
 }

@@ -32,4 +32,8 @@ public class TransactionController {
         Pageable pageable = PageRequest.of(page, size);
         return transactionService.getTransactionByPage(pageable);
     }
+    @GetMapping("/transactionByTable/{idTable}")
+    public Transaction getTransactionByTable(@PathVariable String idTable){
+        return transactionService.getTransactionByTable(idTable);
+    }
 }

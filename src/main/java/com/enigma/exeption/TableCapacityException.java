@@ -8,7 +8,6 @@ public class TableCapacityException extends RuntimeException {
     public TableCapacityException(String s) {
         super(s);
     }
-
     public TableCapacityException() {
         super("Not Enough Table Capacity");
     }

@@ -12,7 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -24,12 +23,13 @@ public class ImplementTransaction implements TransactionService {
 
     @Override
     public Transaction saveTransaction(OrderList newOrderList) {
+        TableEntities table = tableService.getTableById(newOrderList.getIdTable());
         Transaction transactionData =new Transaction();
         transactionData.setOrderList(newOrderList);
+        transactionData.setTableEntities(table);
         transactionData.setTotal(newOrderList.getTotalPrice());
         transactionData.setPaymentStatus("UNPAID");
         transactionData.setPay(0);
-        transactionData.setPaymentMethod("not selected yet");
         transactionData =transactionRepositories.save(transactionData);
         return transactionData;
     }
@@ -59,7 +59,6 @@ public class ImplementTransaction implements TransactionService {
         return transactionData;
     }
 
-
     private void updateStatusTable(Transaction transaction) {
         TableEntities table= tableService.getTableById(transaction.getOrderList().getTable().getIdTable());
         table.setStatus("AVAILABLE");
@@ -69,5 +68,11 @@ public class ImplementTransaction implements TransactionService {
     @Override
     public Page<Transaction> getTransactionByPage(Pageable pageable) {
         return transactionRepositories.findAll(pageable);
+    }
+
+    @Override
+    public Transaction getTransactionByTable(String tableId) {
+        TableEntities table =tableService.getTableById(tableId);
+        return transactionRepositories.getTransactionByTableEntitiesAndPaymentStatus(table,"UNPAID");
     }
 }

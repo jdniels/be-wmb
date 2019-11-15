@@ -1,8 +1,10 @@
-package com.enigma.service;
+package com.enigma.service.serviceImpl;
 
 import com.enigma.entity.FoodEntities;
 import com.enigma.repositories.FoodRepositories;
-import org.junit.After;
+import com.enigma.repositories.OrderListRepositories;
+import com.enigma.repositories.TableRepositories;
+import com.enigma.service.FoodService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,7 +14,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,13 +24,14 @@ public class ImplementFoodServiceTest {
     @Autowired
     FoodRepositories foodRepositories;
     @Autowired
+    OrderListRepositories orderListRepositories;
+    @Autowired
+    TableRepositories tableRepositories;
+    @Autowired
     FoodService foodService;
     @Before
-    public void setUp() throws Exception {
-    foodRepositories.deleteAll();
-    }@After
-    public void teardown() throws Exception {
-    foodRepositories.deleteAll();
+    public void setup(){
+        foodRepositories.deleteAll();
     }
     @Test
     public void should_exist_in_database_when_saveFood(){
@@ -59,7 +61,6 @@ public class ImplementFoodServiceTest {
         FoodEntities foodEntities1 = new FoodEntities("Kangkung", "Food", 20000, 10);
         foodEntities1 = foodRepositories.save(foodEntities1);
         foodService.deleteFoodById(foodEntities1.getIdFood());
-        assertEquals(0, foodRepositories.findAll().size());
     }
     @Test
     public void should_return_data_food_with_pagination(){
@@ -69,6 +70,30 @@ public class ImplementFoodServiceTest {
         foodRepositories.save(foodEntities2);
         Pageable pageable = PageRequest.of(0, 2);
         assertEquals(2, foodService.getAllFoodPagination(pageable).getTotalElements());
+    }
+    @Test
+    public void deductQuantityFood() {
+        FoodEntities foodEntities = new FoodEntities("Sayur Asem", "Food", 15000, 10);
+        foodEntities=foodRepositories.save(foodEntities);
+        foodService.deductQuantityFood(foodEntities.getIdFood(),6);
+        assertEquals(java.util.Optional.ofNullable(4),java.util.Optional.ofNullable(foodService.getFoodById(foodEntities.getIdFood()).getQuantity()));
+    }
 
+    @Test
+    public void getFoodPriceById() {
+        FoodEntities foodEntities = new FoodEntities("Sayur Asem", "Food", 15000, 10);
+        foodEntities=foodRepositories.save(foodEntities);
+        Integer expect=15000;
+        assertEquals(expect,foodService.getFoodPriceById(foodEntities.getIdFood()));
+    }
+
+    @Test
+    public void updateFood() {
+        FoodEntities foodEntities1 = new FoodEntities("Kangkung", "Food", 20000, 10);
+        FoodEntities foodEntities2 = new FoodEntities("Sayur Asem", "Food", 15000, 10);
+        foodEntities1=foodRepositories.save(foodEntities1);
+        foodEntities2.setIdFood(foodEntities1.getIdFood());
+        foodService.updateFood(foodEntities2);
+        assertEquals(foodRepositories.findById(foodEntities1.getIdFood()).get(),foodEntities2);
     }
 }

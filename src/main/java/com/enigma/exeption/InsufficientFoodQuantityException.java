@@ -10,6 +10,6 @@ public class InsufficientFoodQuantityException extends RuntimeException {
     }
     public InsufficientFoodQuantityException() {
         super("Food Quantity Is not Enough");
-    }
 
     }
+}
