@@ -20,10 +20,10 @@ public class OrderList {
     @JoinColumn(name = "id_table")
     private TableEntities table;
     private String picCustomer;
-    private BigDecimal totalPrice= new BigDecimal(0);
+    private Integer totalPrice= 0;
     private Integer manyCustomers;
 
-    @OneToMany(mappedBy = "orderId",cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "orderId",cascade = CascadeType.ALL)
     private List<OrderDetail> orderDetails=new ArrayList<>();
 
     @Transient
@@ -63,13 +63,13 @@ public class OrderList {
         this.picCustomer = picCustomer;
     }
 
-    public BigDecimal getTotalPrice() {
+    public Integer getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(BigDecimal totalPrice) {
+    public void setTotalPrice(Integer totalPrice) {
 
-        this.totalPrice = this.totalPrice.add(totalPrice);
+        this.totalPrice = this.totalPrice+totalPrice;
     }
 
     public Integer getManyCustomers() {
@@ -96,6 +96,7 @@ public class OrderList {
         this.idTable = idTable;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -105,8 +106,7 @@ public class OrderList {
                 Objects.equals(table, orderList.table) &&
                 Objects.equals(picCustomer, orderList.picCustomer) &&
                 Objects.equals(totalPrice, orderList.totalPrice) &&
-                Objects.equals(manyCustomers, orderList.manyCustomers) &&
-                Objects.equals(orderDetails, orderList.orderDetails);
+                Objects.equals(manyCustomers, orderList.manyCustomers);
     }
 
     @Override

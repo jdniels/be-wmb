@@ -5,6 +5,9 @@ import com.enigma.service.FoodService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,7 +30,7 @@ public class FoodController {
     public FoodEntities saveFood(@RequestBody FoodEntities foodEntities){
         return foodService.saveFood(foodEntities);
     }
-    @GetMapping("/food")
+    @GetMapping("/foods")
     public List<FoodEntities> getAllFood(){
         return foodService.getAllFood();
     }
@@ -40,7 +43,7 @@ public class FoodController {
         foodService.deleteFoodById(idFood);
     }
     @PostMapping("/saveFood")
-    public FoodEntities saveFoodContainImages(@RequestPart MultipartFile file,@RequestPart String foodFormData) throws Exception {
+    public FoodEntities saveFoodContainImages(@RequestPart MultipartFile file, @RequestPart String foodFormData) throws Exception {
     FoodEntities newFoodData= foodService.saveFood(mapper.readValue(foodFormData,FoodEntities.class));
     try {
         byte[]dataByte=file.getBytes();
@@ -50,6 +53,10 @@ public class FoodController {
         e.printStackTrace();
     }
     return newFoodData;
+    }
+    @PostMapping("/updateFood")
+    public FoodEntities updateFoodById(@RequestBody FoodEntities foodData){
+        return foodService.updateFood(foodData);
     }
 
 }

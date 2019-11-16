@@ -1,7 +1,9 @@
-package com.enigma.service;
+package com.enigma.service.serviceImpl;
 
 import com.enigma.entity.TableEntities;
+import com.enigma.exeption.TableCapacityException;
 import com.enigma.repositories.TableRepositories;
+import com.enigma.service.TableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +18,13 @@ public class ImplementTableService implements TableService {
 
     @Override
     public TableEntities saveTable(TableEntities newTable) {
-        return tableRepositories.save(newTable);
+        if (newTable.getCapacity() <=1 || newTable.getCapacity() == null){
+            throw new TableCapacityException();
+        }else{
+            newTable.setStatus("AVAILABLE");
+            newTable =tableRepositories.save(newTable);
+        }
+        return newTable;
     }
 
     @Override
@@ -36,6 +44,19 @@ public class ImplementTableService implements TableService {
 
     @Override
     public Page<TableEntities> getAllWithPagination(Pageable pageable) {
-        return tableRepositories.findAll(pageable);
+        return tableRepositories.findAllByOrderByNumberTableAsc(pageable);
+    }
+
+    @Override
+    public List<TableEntities> getTableAvailable(String status) {
+        return tableRepositories.findTableEntitiesByStatus(status);
+    }
+
+    @Override
+    public TableEntities updateTable(TableEntities tableData) {
+        TableEntities table =getTableById(tableData.getIdTable());
+        table.setCapacity(tableData.getCapacity());
+        table.setNumberTable(tableData.getNumberTable());
+        return saveTable(table);
     }
 }
