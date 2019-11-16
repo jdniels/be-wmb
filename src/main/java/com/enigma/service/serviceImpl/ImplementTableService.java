@@ -21,6 +21,7 @@ public class ImplementTableService implements TableService {
         if (newTable.getCapacity() <=1 || newTable.getCapacity() == null){
             throw new TableCapacityException();
         }else{
+            newTable.setStatus("AVAILABLE");
             newTable =tableRepositories.save(newTable);
         }
         return newTable;

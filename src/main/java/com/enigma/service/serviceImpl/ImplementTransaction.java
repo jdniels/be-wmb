@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -29,6 +30,7 @@ public class ImplementTransaction implements TransactionService {
         transactionData.setTableEntities(table);
         transactionData.setTotal(newOrderList.getTotalPrice());
         transactionData.setPaymentStatus("UNPAID");
+        transactionData.setPaymentDate(new Date());
         transactionData.setPay(0);
         transactionData =transactionRepositories.save(transactionData);
         return transactionData;
@@ -51,6 +53,7 @@ public class ImplementTransaction implements TransactionService {
             throw new NotEnoughtMoneyException();
         }else {
             transactionData.setPaymentStatus("PAID");
+            transactionData.setPaymentDate(new Date());
             transactionData.setPay(transaction.getPay());
             transactionData.setChange(transaction.getTotal());
             updateStatusTable(transaction);
@@ -67,7 +70,7 @@ public class ImplementTransaction implements TransactionService {
 
     @Override
     public Page<Transaction> getTransactionByPage(Pageable pageable) {
-        return transactionRepositories.findAll(pageable);
+        return transactionRepositories.findAllByOrderByPaymentDateDesc(pageable);
     }
 
     @Override

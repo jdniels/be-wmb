@@ -4,6 +4,7 @@ package com.enigma.entity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -17,6 +18,7 @@ public class Transaction {
     private Integer change;
     private Integer pay ;
     private String paymentStatus;
+    private Date paymentDate;
 
     @ManyToOne
     @JoinColumn(name = "id_order")
@@ -89,6 +91,14 @@ public class Transaction {
 
     public void setTableEntities(TableEntities tableEntities) {
         this.tableEntities = tableEntities;
+    }
+
+    public Date getPaymentDate() {
+        return paymentDate;
+    }
+
+    public void setPaymentDate(Date paymentDate) {
+        this.paymentDate = paymentDate;
     }
 
     @Override
