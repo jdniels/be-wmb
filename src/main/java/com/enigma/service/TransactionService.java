@@ -12,8 +12,12 @@ public interface TransactionService {
     Transaction saveTransaction(OrderList newOrderList);
 
     List<Transaction> getTransactions();
+
     Transaction getTransactionById(String idTransaction);
+
     Transaction updatePaymentStatus(Transaction transaction);
+
     Page<Transaction> getTransactionByPage(Pageable pageable);
+
     Transaction getTransactionByTable(String tableId);
 }

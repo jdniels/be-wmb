@@ -38,7 +38,7 @@ public class ImplementOrderListService implements OrderListService {
         TableEntities table = tableService.getTableById(newOrder.getIdTable());
         if (table.getCapacity() < newOrder.getManyCustomers()) {
             throw new TableCapacityException();
-        }else {
+        } else {
             updateStatusTable(table);
             newOrder.setTable(table);
             checkOrdersFood(newOrder);

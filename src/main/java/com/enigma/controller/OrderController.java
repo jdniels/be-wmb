@@ -18,16 +18,17 @@ public class OrderController {
     OrderListService orderListService;
 
     @PostMapping("/order")
-    public OrderList saveOrder(@RequestBody OrderList orderForm){
+    public OrderList saveOrder(@RequestBody OrderList orderForm) {
         return orderListService.saveOrder(orderForm);
     }
 
     @GetMapping("/orders")
-    public List<OrderList> getAllOrder(){
+    public List<OrderList> getAllOrder() {
         return orderListService.getAllOrderList();
     }
+
     @GetMapping("/order/{idOrder}")
-    public OrderList getOrderById(@PathVariable String idOrder){
+    public OrderList getOrderById(@PathVariable String idOrder) {
         return orderListService.getOrderListById(idOrder);
     }
 }

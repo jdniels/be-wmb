@@ -27,31 +27,35 @@ public class FoodController {
     ObjectMapper mapper;
 
     @GetMapping("/foods")
-    public List<FoodEntities> getAllFood(){
+    public List<FoodEntities> getAllFood() {
         return foodService.getAllFood();
     }
+
     @GetMapping("/food/{idFood}")
-    public FoodEntities getFoodById(@PathVariable String idFood){
+    public FoodEntities getFoodById(@PathVariable String idFood) {
         return foodService.getFoodById(idFood);
     }
+
     @DeleteMapping("/food/{idFood}")
-    public void deleteFood(@PathVariable String idFood){
+    public void deleteFood(@PathVariable String idFood) {
         foodService.deleteFoodById(idFood);
     }
+
     @PostMapping("/food")
     public FoodEntities saveFoodContainImages(@RequestPart MultipartFile file, @RequestPart String foodFormData) throws Exception {
-    FoodEntities newFoodData= foodService.saveFood(mapper.readValue(foodFormData,FoodEntities.class));
-    try {
-        byte[]dataByte=file.getBytes();
-        Path path= Paths.get("/var/www/html/foodImages/"+newFoodData.getIdFood()+".jpg");
-        Files.write(path,dataByte);
-    } catch (IOException e) {
-        e.printStackTrace();
+        FoodEntities newFoodData = foodService.saveFood(mapper.readValue(foodFormData, FoodEntities.class));
+        try {
+            byte[] dataByte = file.getBytes();
+            Path path = Paths.get("/var/www/html/foodImages/" + newFoodData.getIdFood() + ".jpg");
+            Files.write(path, dataByte);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return newFoodData;
     }
-    return newFoodData;
-    }
+
     @PutMapping("/food")
-    public FoodEntities updateFoodById(@RequestBody FoodEntities foodData){
+    public FoodEntities updateFoodById(@RequestBody FoodEntities foodData) {
         return foodService.updateFood(foodData);
     }
 
