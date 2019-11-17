@@ -94,7 +94,7 @@ public class TableControllerTest {
     }
 
     @Test
-    public void getTableWithPagination()throws Exception {
+    public void should_return_data_with_pagination_when_getTableWithPagination()throws Exception {
         TableEntities tableEntities1 = new TableEntities(1,"AVAILABLE",4);
         TableEntities tableEntities2 = new TableEntities(2,"AVAILABLE",4);
         tableEntities1=tableService.saveTable(tableEntities1);
@@ -110,7 +110,7 @@ public class TableControllerTest {
     }
 
     @Test
-    public void updateTable() throws Exception{
+    public void should_data_updated_when_updateTable() throws Exception{
         TableEntities tableEntities = new TableEntities(1,"AVAILABLE",4);
         TableEntities tableEntities2 = new TableEntities(2,"AVAILABLE",8);
         tableEntities=tableService.saveTable(tableEntities);
@@ -122,7 +122,7 @@ public class TableControllerTest {
     }
 
     @Test
-    public void deleteTableById() throws Exception {
+    public void should_return_0_size_when_deleteTableById() throws Exception {
         TableEntities tableEntities = new TableEntities(1,"AVAILABLE",4);
         tableEntities=tableService.saveTable(tableEntities);
         mockMvc.perform(delete("/table/{idTable}",tableEntities.getIdTable())).andExpect(status().isOk());
