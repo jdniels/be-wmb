@@ -18,11 +18,11 @@ public class ImplementTableService implements TableService {
 
     @Override
     public TableEntities saveTable(TableEntities newTable) {
-        if (newTable.getCapacity() <=1 || newTable.getCapacity() == null){
+        if (newTable.getCapacity() <= 1 || newTable.getCapacity() == null) {
             throw new TableCapacityException();
-        }else{
+        } else {
             newTable.setStatus("AVAILABLE");
-            newTable =tableRepositories.save(newTable);
+            newTable = tableRepositories.save(newTable);
         }
         return newTable;
     }
@@ -54,7 +54,7 @@ public class ImplementTableService implements TableService {
 
     @Override
     public TableEntities updateTable(TableEntities tableData) {
-        TableEntities table =getTableById(tableData.getIdTable());
+        TableEntities table = getTableById(tableData.getIdTable());
         table.setCapacity(tableData.getCapacity());
         table.setNumberTable(tableData.getNumberTable());
         return saveTable(table);

@@ -18,21 +18,17 @@ public class OrderController {
     OrderListService orderListService;
 
     @PostMapping("/order")
-    public OrderList saveOrder(@RequestBody OrderList orderForm){
+    public OrderList saveOrder(@RequestBody OrderList orderForm) {
         return orderListService.saveOrder(orderForm);
     }
 
-    @GetMapping("/order")
-    public List<OrderList> getAllOrder(){
+    @GetMapping("/orders")
+    public List<OrderList> getAllOrder() {
         return orderListService.getAllOrderList();
     }
+
     @GetMapping("/order/{idOrder}")
-    public OrderList getOrderById(@PathVariable String idOrder){
+    public OrderList getOrderById(@PathVariable String idOrder) {
         return orderListService.getOrderListById(idOrder);
-    }
-    @GetMapping("/getOrder")
-    public Page<OrderList> getOrderByPagination(@RequestParam Integer page, @RequestParam Integer size){
-        Pageable pageable = PageRequest.of(page, size);
-        return orderListService.getOrderListPagination(pageable);
     }
 }

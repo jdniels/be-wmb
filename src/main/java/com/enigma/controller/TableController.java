@@ -20,25 +20,25 @@ public class TableController {
     public TableEntities saveTable(@RequestBody TableEntities newTable) {
         return tableService.saveTable(newTable);
     }
-    @GetMapping("/table")
-    public List<TableEntities> getAllTable() {
-        return tableService.getAllTable();
-    }
+
     @GetMapping("/table/{idTable}")
     public TableEntities getTableById(@PathVariable String idTable) {
         return tableService.getTableById(idTable);
     }
-    @GetMapping("/getTable")
-    public Page<TableEntities>getTableWithPagination(@RequestParam Integer page,@RequestParam Integer size){
-        Pageable pageable = PageRequest.of(page,size);
+
+    @GetMapping("/tables")
+    public Page<TableEntities> getTableWithPagination(@RequestParam Integer page, @RequestParam Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
         return tableService.getAllWithPagination(pageable);
     }
-    @GetMapping("/tableAvailable")
-    public List<TableEntities>getTableAvailable(){
-        return tableService.getTableAvailable("AVAILABLE");
-    }
-    @PostMapping("/updateTable")
-    public TableEntities updateTable(@RequestBody TableEntities tableData){
+
+    @PutMapping("/table")
+    public TableEntities updateTable(@RequestBody TableEntities tableData) {
         return tableService.updateTable(tableData);
+    }
+
+    @DeleteMapping("/table/{idTable}")
+    public void deleteTableById(@PathVariable String idTable) {
+        tableService.deleteById(idTable);
     }
 }

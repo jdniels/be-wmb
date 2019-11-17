@@ -16,6 +16,8 @@ public interface TableService {
     void deleteById(String idTable);
 
     Page<TableEntities> getAllWithPagination(Pageable pageable);
-    List<TableEntities>getTableAvailable(String status);
+
+    List<TableEntities> getTableAvailable(String status);
+
     TableEntities updateTable(TableEntities tableData);
 }

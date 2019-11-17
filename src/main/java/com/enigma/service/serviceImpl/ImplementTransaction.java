@@ -25,14 +25,14 @@ public class ImplementTransaction implements TransactionService {
     @Override
     public Transaction saveTransaction(OrderList newOrderList) {
         TableEntities table = tableService.getTableById(newOrderList.getIdTable());
-        Transaction transactionData =new Transaction();
+        Transaction transactionData = new Transaction();
         transactionData.setOrderList(newOrderList);
         transactionData.setTableEntities(table);
         transactionData.setTotal(newOrderList.getTotalPrice());
         transactionData.setPaymentStatus("UNPAID");
         transactionData.setPaymentDate(new Date());
         transactionData.setPay(0);
-        transactionData =transactionRepositories.save(transactionData);
+        transactionData = transactionRepositories.save(transactionData);
         return transactionData;
     }
 
@@ -48,22 +48,22 @@ public class ImplementTransaction implements TransactionService {
 
     @Override
     public Transaction updatePaymentStatus(Transaction transaction) {
-        Transaction transactionData= getTransactionById(transaction.getIdTransaction());
-        if (transaction.getPay()<transactionData.getTotal()){
+        Transaction transactionData = getTransactionById(transaction.getIdTransaction());
+        if (transaction.getPay() < transactionData.getTotal()) {
             throw new NotEnoughtMoneyException();
-        }else {
+        } else {
             transactionData.setPaymentStatus("PAID");
             transactionData.setPaymentDate(new Date());
             transactionData.setPay(transaction.getPay());
             transactionData.setChange(transaction.getTotal());
             updateStatusTable(transaction);
-            transactionData=transactionRepositories.save(transactionData);
+            transactionData = transactionRepositories.save(transactionData);
         }
         return transactionData;
     }
 
     private void updateStatusTable(Transaction transaction) {
-        TableEntities table= tableService.getTableById(transaction.getOrderList().getTable().getIdTable());
+        TableEntities table = tableService.getTableById(transaction.getOrderList().getTable().getIdTable());
         table.setStatus("AVAILABLE");
         tableService.saveTable(table);
     }
@@ -75,7 +75,7 @@ public class ImplementTransaction implements TransactionService {
 
     @Override
     public Transaction getTransactionByTable(String tableId) {
-        TableEntities table =tableService.getTableById(tableId);
-        return transactionRepositories.getTransactionByTableEntitiesAndPaymentStatus(table,"UNPAID");
+        TableEntities table = tableService.getTableById(tableId);
+        return transactionRepositories.getTransactionByTableEntitiesAndPaymentStatus(table, "UNPAID");
     }
 }

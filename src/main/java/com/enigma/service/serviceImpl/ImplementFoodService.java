@@ -46,7 +46,7 @@ public class ImplementFoodService implements FoodService {
     public void deductQuantityFood(String idFood, Integer quantity) {
         FoodEntities food = getFoodById(idFood);
         if (food.getQuantity() < quantity) {
-                throw  new InsufficientFoodQuantityException();
+            throw new InsufficientFoodQuantityException();
         } else {
             food.deductQuantityFood(quantity);
             saveFood(food);
@@ -60,7 +60,7 @@ public class ImplementFoodService implements FoodService {
 
     @Override
     public FoodEntities updateFood(FoodEntities newData) {
-        FoodEntities food =getFoodById(newData.getIdFood());
+        FoodEntities food = getFoodById(newData.getIdFood());
         food.setFoodName(newData.getFoodName());
         food.setQuantity(newData.getQuantity());
         food.setPrice(newData.getPrice());

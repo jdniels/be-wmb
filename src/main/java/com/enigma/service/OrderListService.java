@@ -8,7 +8,10 @@ import java.util.List;
 
 public interface OrderListService {
     OrderList saveOrder(OrderList newOrder);
+
     OrderList getOrderListById(String orderId);
-    List<OrderList>getAllOrderList();
-    Page<OrderList>getOrderListPagination(Pageable pageable);
+
+    List<OrderList> getAllOrderList();
+
+    Page<OrderList> getOrderListPagination(Pageable pageable);
 }
