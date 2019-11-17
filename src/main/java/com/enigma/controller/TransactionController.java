@@ -15,7 +15,7 @@ import java.util.List;
 public class TransactionController {
     @Autowired
     TransactionService transactionService;
-    @GetMapping("/transaction")
+    @GetMapping("/transactions")
     public List<Transaction> getTransactions(){
         return transactionService.getTransactions();
     }
@@ -23,16 +23,16 @@ public class TransactionController {
     public Transaction getTransactionById(@PathVariable String idTransaction){
         return transactionService.getTransactionById(idTransaction);
     }
-    @PostMapping("/pay")
+    @PostMapping("/transaction")
     public Transaction updatePayment(@RequestBody Transaction transaction){
         return  transactionService.updatePaymentStatus(transaction);
     }
-    @GetMapping("/getTransaction")
+    @GetMapping("/page-transactions")
     public Page<Transaction> getTransactionByPage(@RequestParam Integer size, @RequestParam Integer page){
         Pageable pageable = PageRequest.of(page, size);
         return transactionService.getTransactionByPage(pageable);
     }
-    @GetMapping("/transactionByTable/{idTable}")
+    @GetMapping("/transaction-table/{idTable}")
     public Transaction getTransactionByTable(@PathVariable String idTable){
         return transactionService.getTransactionByTable(idTable);
     }

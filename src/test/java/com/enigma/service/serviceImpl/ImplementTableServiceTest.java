@@ -91,12 +91,13 @@ public class ImplementTableServiceTest {
 
     @Test
     public void updateTable() {
-        TableEntities newTable1 = new TableEntities(1, "Avaliable", 4);
-        TableEntities newTable2 = new TableEntities(2, "Avaliable", 6);
+        TableEntities newTable1 = new TableEntities(1, "AVAILABLE", 4);
+        TableEntities newTable2 = new TableEntities(2, "AVAILABLE", 6);
         newTable1 = tableRepositories.save(newTable1);
         newTable2.setIdTable(newTable1.getIdTable());
         tableService.updateTable(newTable2);
-        assertEquals(tableRepositories.findById(newTable1.getIdTable()).get(), newTable2);
+        TableEntities actual =tableService.getTableById(newTable1.getIdTable());
+        assertEquals( newTable2,actual);
 
     }
 }

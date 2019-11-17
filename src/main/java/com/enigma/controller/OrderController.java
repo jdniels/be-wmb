@@ -22,17 +22,12 @@ public class OrderController {
         return orderListService.saveOrder(orderForm);
     }
 
-    @GetMapping("/order")
+    @GetMapping("/orders")
     public List<OrderList> getAllOrder(){
         return orderListService.getAllOrderList();
     }
     @GetMapping("/order/{idOrder}")
     public OrderList getOrderById(@PathVariable String idOrder){
         return orderListService.getOrderListById(idOrder);
-    }
-    @GetMapping("/getOrder")
-    public Page<OrderList> getOrderByPagination(@RequestParam Integer page, @RequestParam Integer size){
-        Pageable pageable = PageRequest.of(page, size);
-        return orderListService.getOrderListPagination(pageable);
     }
 }

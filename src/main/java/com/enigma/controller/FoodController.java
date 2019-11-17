@@ -26,10 +26,6 @@ public class FoodController {
     @Autowired
     ObjectMapper mapper;
 
-    @PostMapping("/food")
-    public FoodEntities saveFood(@RequestBody FoodEntities foodEntities){
-        return foodService.saveFood(foodEntities);
-    }
     @GetMapping("/foods")
     public List<FoodEntities> getAllFood(){
         return foodService.getAllFood();
@@ -42,7 +38,7 @@ public class FoodController {
     public void deleteFood(@PathVariable String idFood){
         foodService.deleteFoodById(idFood);
     }
-    @PostMapping("/saveFood")
+    @PostMapping("/food")
     public FoodEntities saveFoodContainImages(@RequestPart MultipartFile file, @RequestPart String foodFormData) throws Exception {
     FoodEntities newFoodData= foodService.saveFood(mapper.readValue(foodFormData,FoodEntities.class));
     try {
@@ -54,7 +50,7 @@ public class FoodController {
     }
     return newFoodData;
     }
-    @PostMapping("/updateFood")
+    @PutMapping("/food")
     public FoodEntities updateFoodById(@RequestBody FoodEntities foodData){
         return foodService.updateFood(foodData);
     }
