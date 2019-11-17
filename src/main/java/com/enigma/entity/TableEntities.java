@@ -1,4 +1,6 @@
 package com.enigma.entity;
+    @Test
+    public
 
 import org.hibernate.annotations.GenericGenerator;
 
